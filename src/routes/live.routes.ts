@@ -1,16 +1,31 @@
 import { Application } from "express";
+import { stringify } from "querystring";
 const fetch = require("node-fetch");
 
 export default (app: Application): void => {
 	app.post("/credit-search", async (req, res, next) => {
 		const { surname, address, postcode } = req.body;
+		let address1;
+		let address2;
+		// split address if it contains 'flat'
+		if (address.toLowerCase().includes("flat")) {
+			address1 = address.split(" ").slice(0, 2).join(" ");
+
+			address2 = address
+				.split(" ")
+				.slice(2, address.split(" ").length)
+				.join(" ");
+		} else {
+			address1 = address;
+			address2 = "";
+		}
 
 		const addressUrl =
 			"https://developer-test-service-2vfxwolfiq-nw.a.run.app/addresses";
 
 		const addressBody = {
-			address1: address,
-			address2: "",
+			address1: address1,
+			address2: address2,
 			postcode: postcode,
 		};
 
