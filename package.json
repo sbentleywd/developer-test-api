@@ -9,7 +9,7 @@
     "start:dev": "ts-node ./src/index.ts",
     "start:prod": "node ./dist/index.js",
     "minify": "uglifyjs-folder dist -e -x .js -o dist",
-    "test": "jest --config jestconfig.json",
+    "test": "jest --watch --config jestconfig.json",
     "lint": " eslint ./src --ext .ts"
   },
   "repository": {
